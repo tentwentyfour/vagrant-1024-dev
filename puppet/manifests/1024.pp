@@ -231,7 +231,7 @@ class { 'php' :
     service => 'apache',
 }
 
-#include php_modules
+# Install additional PHP modules, make sure this runs before composer installation!
 php::module {
     [
         'cli',
@@ -264,4 +264,5 @@ class { 'composer':
     ]
 }
 
+# Set up xhprof
 include xhprof
