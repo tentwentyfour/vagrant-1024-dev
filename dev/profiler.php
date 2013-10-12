@@ -1,8 +1,8 @@
-<h1> hi, this page should of been profiled</h1>
-<p> Check fo a link below taking you nto the profiler output page</p>
+<h1>hi, this page should have been profiled</h1>
+<p>Check for a link below taking you to the profiler output page</p>
 
 <?php
-// Some samples  to epview xhprof output
+// Some samples to preview xhprof output
 
 function test_for()
 {

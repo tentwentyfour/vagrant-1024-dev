@@ -183,7 +183,7 @@ class vhostsetup {
     ],
     server_admin        => 'info@1024.lu',
     docroot_create      => true,
-    priority            => '1',
+    priority            => '',
     env_variables       => [
         'APP_ENV dev'
     ],
