@@ -9,8 +9,8 @@ Base LAMP (PHP) stack with vagrant that includes remote debugging, profiling wit
     * mod_rewrite  
     * mod_php  
     * Main virtualhost set up  
-        * Document root /vagrant/www/ (synched VM folder)
-        * Name 1024dev
+        * Document root /var/www/ (synced VM folder to $vagrantdir/dev)
+        * Name ttf.dev
         * port 80
     * xhprof virtualhost  
         * Document root /var/xhprof/ 
@@ -23,7 +23,7 @@ Base LAMP (PHP) stack with vagrant that includes remote debugging, profiling wit
     * XDebug - setup for remote debugging
     * __xhprof__ - PHP profiler, auto enabled for all PHP files served from /vagrant/www/
 * __Basic utilities__  
-    * git-core
+    * git-core (for composer)
     * curl  
     * vim
 * __Networking__
@@ -53,4 +53,5 @@ Then ...
 ## Attributions
 
 * Forked from [pipe-devnull/vagrant-dev-lamp](https://github.com/pipe-devnull/vagrant-dev-lamp)
+* Uses puppet modules from the [PuPHPet](https://puphpet.com/) project
 * Uses the xhprof package from [packagist](https://packagist.org/packages/facebook/xhprof)

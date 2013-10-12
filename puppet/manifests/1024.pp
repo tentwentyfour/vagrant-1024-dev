@@ -60,12 +60,20 @@ class xhprof {
 
 
     # Install xhprof using composer
-    composer::run { 'xhprof':
-        path => '/var/www/xhprof/',
+    composer::run { 'xhprof_install':
+        path => '/var/xhprof/',
         require => [
             Class['composer'],
             File['/var/xhprof/composer.json'],
         ],
+        before => Exec['xhprof_so'],
+    }
+
+    # Build the module
+    exec { 'xhprof_so':
+        creates => '/usr/lib/php5/20100525/xhprof.so',
+        cwd => '/var/xhprof/vendor/facebook/xhprof/extension',
+        command => '/usr/bin/phpize && /bin/sh configure && /usr/bin/make && /usr/bin/make install',
     }
 
     # Install graphviz
@@ -91,7 +99,6 @@ class xhprof {
         group  => 'vagrant',
         require => Exec['xhprof_dir'],
     }
-
 
     # Copy profiler header & footer files into place 
 
@@ -184,22 +191,6 @@ class vhostsetup {
   }
 }
 
-class php_modules {
-    # Install common php modules
-    php::module {
-        [
-            'cli',
-            'mysql',
-            'ldap',
-            'json',
-            'curl',
-            'intl',
-            'gd',
-        ]:
-        notify => Service['apache2'],
-    }
-}
-
 ######################################
 # OK, now let's run all of the classes
 # and modules
@@ -209,7 +200,6 @@ class php_modules {
 include util
 
 # Install and configure apache
-#include apache
 class { 'apache': }
 
 # Set a random password ( saved in /root/.my.cnf )
@@ -235,6 +225,7 @@ class { 'php' :
 php::module {
     [
         'cli',
+        'dev',
         'mysql',
         'ldap',
         'json',
