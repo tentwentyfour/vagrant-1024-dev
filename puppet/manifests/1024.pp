@@ -47,11 +47,11 @@ class xhprof {
 
     # Create xhprof dir
     exec { 'xhprof_dir':
-        command => '/bin/mkdir -p /var/www/xhprof'
+        command => '/bin/mkdir -p /var/xhprof'
     }
 
     # Copy xhprof composer.json
-    file { '/var/www/xhprof/composer.json':
+    file { '/var/xhprof/composer.json':
         source => [
             '/vagrant/conf/xhprof-composer.json',
         ],
@@ -62,7 +62,10 @@ class xhprof {
     # Install xhprof using composer
     composer::run { 'xhprof':
         path => '/var/www/xhprof/',
-        require => Class['composer'],
+        require => [
+            Class['composer'],
+            File['/var/xhprof/composer.json'],
+        ],
     }
 
     # Install graphviz
@@ -72,22 +75,23 @@ class xhprof {
     }
 
     # Symlink the xhprof HTML directory
-    #file { "/var/xhprof/xhprof_html":
-    #    target =>  "/usr/share/php/xhprof_html",
-    #    ensure => link,
-    #    owner  => 'vagrant',
-    #    group  => 'vagrant',
-    #    require => Exec['xhprof_s1'],
-    #}
+    file { "/var/xhprof/xhprof_html":
+        target =>  "/var/xhprof/vendor/facebook/xhprof/xhprof_html",
+        ensure => link,
+        owner  => 'vagrant',
+        group  => 'vagrant',
+        require => Exec['xhprof_dir'],
+    }
 
     # Symlink the xhprof lib directory
-    #file { "/var/xhprof/xhprof_lib":
-    #    target =>  "/usr/share/php/xhprof_lib",
-    #    ensure => link,
-    #    owner  => 'vagrant',
-    #    group  => 'vagrant',
-    #    require => Exec['xhprof_s1'],
-    #}
+    file { "/var/xhprof/xhprof_lib":
+        target =>  "/var/xhprof/vendor/facebook/xhprof/xhprof_lib",
+        ensure => link,
+        owner  => 'vagrant',
+        group  => 'vagrant',
+        require => Exec['xhprof_dir'],
+    }
+
 
     # Copy profiler header & footer files into place 
 
@@ -119,8 +123,8 @@ class xhprof {
     apache::vhost { 'xhprof':
         docroot             => '/var/xhprof',
         port                => '8000',
-        server_name         => 'lampdev',
-        server_admin        => 'webmaster@locahost',
+        server_name         => 'xhprof',
+        server_admin        => 'info@1024.lu',
         docroot_create      => true,
         priority            => '',
         template            => '/vagrant/conf/xhprof-vhost-template',
@@ -138,7 +142,7 @@ class xhprof {
 
 ###########################################
 # Some basic utils that we need or
-# could come in handy
+# that could come in handy
 ###########################################
 class util {
 
