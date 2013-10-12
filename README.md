@@ -2,7 +2,6 @@ vagrant-1024-dev
 ================
 
 Base LAMP (PHP) stack with vagrant that includes remote debugging, profiling with xhprof and composer for PHP package management.
-Based off pipe-devnull/vagrant-dev-lamp
 
 ## Spec
 
@@ -49,3 +48,9 @@ Then ...
     cd vagrant-1024-dev
     # Build the VM using vagrant
     vagrant up
+
+
+## Attributions
+
+* Forked from [pipe-devnull/vagrant-dev-lamp](https://github.com/pipe-devnull/vagrant-dev-lamp)
+* Uses the xhprof package from [packagist](https://packagist.org/packages/facebook/xhprof)
