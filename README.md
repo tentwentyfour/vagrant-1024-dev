@@ -30,9 +30,7 @@ Based off pipe-devnull/vagrant-dev-lamp
 * __Networking__
     * VM Port 22 (ssh) traffic forwarded to port 2222 on host - ssh to localhost:2222 
     * VM Port 80 (http) traffic forwarded to port 8080 on host - point your browser at localhost:8080
-    * VM Port 8000 (http) traffic forwarded to port 8000 on host - point your browser at localhost:8000 
-    * VM Port 9000 (http) traffic forwarded to port 9001 on host - point your browser at localhost:9001
-
+    * VM Port 8000 (http) traffic forwarded to port 8000 on host - point your browser at localhost:8000
 
 
 ## Quick Guide
