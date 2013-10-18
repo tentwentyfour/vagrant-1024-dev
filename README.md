@@ -5,7 +5,7 @@ Base LAMP (PHP) stack with vagrant that includes remote debugging, profiling wit
 
 ## Spec
 
-* __Apache__
+* __Apache httpd__
     * mod_rewrite  
     * mod_php  
     * Main virtualhost set up  
@@ -26,6 +26,8 @@ Base LAMP (PHP) stack with vagrant that includes remote debugging, profiling wit
     * git-core (for composer)
     * curl  
     * vim
+* __Development Tools__
+    * Apache ant - used for building projects' build targets
 * __Networking__
     * VM Port 22 (ssh) traffic forwarded to port 2222 on host - ssh to localhost:2222 
     * VM Port 80 (http) traffic forwarded to port 8080 on host - point your browser at localhost:8080
@@ -55,3 +57,4 @@ Then ...
 * Forked from [pipe-devnull/vagrant-dev-lamp](https://github.com/pipe-devnull/vagrant-dev-lamp)
 * Uses puppet modules from the [PuPHPet](https://puphpet.com/) project
 * Uses the xhprof package from [packagist](https://packagist.org/packages/facebook/xhprof)
+* Includes maestrodev's [puppet-ant](https://github.com/maestrodev/puppet-ant) and [puppet-wget](https://github.com/maestrodev/puppet-wget) modules

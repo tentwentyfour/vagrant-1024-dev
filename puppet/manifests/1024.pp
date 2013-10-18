@@ -10,35 +10,6 @@ group { 'puppet': ensure => present }
 Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
 File { owner => 0, group => 0, mode => 0644 }
 
-
-###########################################
-# PHP installation & base php extensions
-###########################################
-
-#class php {
-#
-# Install PHP and PHP modules and restart Apache
-#  package { 
-#    [
-#      'php5',
-#      'php-apc',
-#      'php5-intl',
-#      'libapache2-mod-php5',
-#      'php5-xdebug',
-#      'php5-mysql',
-#      'php5-curl'
-#    ]:
-#    ensure  => installed,
-#    notify  => Service['apache2'],
-#  }
-
-#  file { '/etc/php5/conf.d/xdebug.ini':
-#    source => '/vagrant/conf/xdebug.ini',
-#    notify  => Service['apache2'],
-#  }
-#  
-#}
-
 ###########################################
 # Install xhprof for php profiling
 # Requires composer
@@ -220,6 +191,9 @@ mysql::grant { 'db_dev':
 class { 'php' :
     service => 'apache',
 }
+
+# Install ant to be able to run tasks from the build.xml files
+class { 'ant': }
 
 # Install additional PHP modules, make sure this runs before composer installation!
 php::module {

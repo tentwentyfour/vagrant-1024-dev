@@ -13,3 +13,9 @@
 [submodule "puppet/modules/puppi"]
 	path = puppet/modules/puppi
 	url = https://github.com/example42/puppi
+[submodule "puppet/modules/ant"]
+	path = puppet/modules/ant
+	url = https://github.com/maestrodev/puppet-ant.git
+[submodule "puppet/modules/wget"]
+	path = puppet/modules/wget
+	url = https://github.com/maestrodev/puppet-wget.git
