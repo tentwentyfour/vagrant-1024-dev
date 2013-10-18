@@ -1,5 +1,5 @@
 <?php
-if (extension_loaded('xhprof'))
+if (extension_loaded('xhprof') && !is_ajax())
 {
     $profiler_namespace = 'lampdev';
     $xhprof_data 		= xhprof_disable();
