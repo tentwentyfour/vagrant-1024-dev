@@ -19,3 +19,6 @@
 [submodule "puppet/modules/wget"]
 	path = puppet/modules/wget
 	url = https://github.com/maestrodev/puppet-wget.git
+[submodule "puppet/modules/java"]
+	path = puppet/modules/java
+	url = https://github.com/akquinet/puppet-openjdk-6-jre.git

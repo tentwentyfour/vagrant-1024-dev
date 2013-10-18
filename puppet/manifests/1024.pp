@@ -128,6 +128,8 @@ class util {
     [
         'curl',
         'vim',
+        'tmux',
+        'htop',
         'make',
         'git-core',
         'php-apc',
@@ -191,6 +193,9 @@ mysql::grant { 'db_dev':
 class { 'php' :
     service => 'apache',
 }
+
+# Install java, in order to be able to execute ant tasks that depend on it
+class { "java" : }
 
 # Install ant to be able to run tasks from the build.xml files
 class { 'ant': }

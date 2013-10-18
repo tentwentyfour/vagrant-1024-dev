@@ -1,2 +1,4 @@
 .vagrant
 dev/xhprof
+dev/*
+*.sublime-*
