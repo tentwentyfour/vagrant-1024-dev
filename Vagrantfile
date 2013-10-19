@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
 
   # The guest's /var/www folder should be mapped to the dev folder inside 
   # this vagrant working directory
-  config.vm.synced_folder "./dev", "/var/www", id: "vagrant-root"
+  config.vm.synced_folder "./dev", "/var/www", id: "vagrant-root", :owner=> 'vagrant', :group => 'www-data', :mount_options => ['dmode=775', 'fmode=664']
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
