@@ -2,7 +2,7 @@
 # Simple DEV lampstack
 #
 # - Base set up
-# - Apache, Mysql, PHP (with apc) & some 
+# - Apache, Mysql, PHP (with apc) & some
 #   basic utils
 #
 ###########################################
@@ -71,7 +71,7 @@ class xhprof {
         require => Exec['xhprof_dir'],
     }
 
-    # Copy profiler header & footer files into place 
+    # Copy profiler header & footer files into place
 
     # Copy header
     file { "/var/xhprof/header.php":
@@ -96,7 +96,7 @@ class xhprof {
         group  => "www-data",
         mode   => 755,
     }
-  
+
     # Setup the xhprof vhost, use standard template
     apache::vhost { 'xhprof':
         docroot             => '/var/xhprof',
@@ -124,7 +124,7 @@ class xhprof {
 ###########################################
 class util {
 
-  package { 
+  package {
     [
         'curl',
         'vim',
@@ -140,7 +140,7 @@ class util {
 }
 
 ###########################################
-# Basic apache installation & VHOST setup 
+# Basic apache installation & VHOST setup
 # using vhost template file in vagrant-dev/conf.
 #
 ###########################################
@@ -165,9 +165,40 @@ class vhostsetup {
 }
 
 ######################################
+# Ensure the apt repository is up to date
+######################################
+class apt-get-update {
+
+    # update package files
+    exec { "apt-get-update":
+        command => "/usr/bin/apt-get update",
+        before => [
+            Class['util'],
+            Class['php'],
+            Class['mysql'],
+            Class['xhprof'],
+            Class['apache']
+        ]
+    }
+
+    # update the system, non-interactively
+    exec { "apt-get-upgrade":
+        command => "/usr/bin/apt-get -y upgrade",
+        require => Exec['apt-get-update']
+    }
+}
+
+######################################
 # OK, now let's run all of the classes
 # and modules
 ######################################
+
+# Update the apt repository
+include apt-get-update
+
+# support all major APT repository management features,
+# such as manipulating sources.list, pinning, adding keys..
+#include apt
 
 # Install common tools
 include util
@@ -225,7 +256,7 @@ class { 'xdebug':
 # Set up a default vhost for development
 include vhostsetup
 
-class { 'composer': 
+class { 'composer':
     install_location => '/usr/bin',
     filename => 'composer',
     require => [
